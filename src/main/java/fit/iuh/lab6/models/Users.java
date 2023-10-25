@@ -45,4 +45,8 @@ public class Users {
     private String firstName;
     @Column(name = "email",columnDefinition = "varchar(50)")
     private String email;
+
+    public String getName(){
+        return this.firstName+" "+this.lastName+" "+this.middleName;
+    }
 }

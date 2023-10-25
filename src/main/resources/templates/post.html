@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* CSS để tạo khung */
+        div.inline {
+            color: black;
+            float: left;
+            padding: 5px 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        div.inline a.active {
+            background-color: #FBD603;
+            border:1px solid darkred;
+        }
+        .article-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+        .article-title {
+            font-size: 24px;
+        }
+        .article-content {
+            font-size: 16px;
+        }
+        .date {
+            color: #888;
+        }
+        .comment {
+            border: 1px solid #ccc;  /* Định dạng viền của phần tử comment */
+            padding: 10px;
+            margin: 20px;
+            margin-bottom: 10px;  /* Định dạng khoảng cách giữa các comment */
+            background-color: #f5f5f5; /* Màu nền của phần tử comment */
+        }
+        .userComment{
+            color: blue;
+        }
+
+    </style>
+</head>
+<body>
+   <h1 align="center">Phạm Hà Nam Blogs</h1>
+    <hr>
+    <div th:each="post, iStat:${postPage.content}">
+        <div class="article-container">
+            <p th:text="${post.id}"></p>
+            <h1 class="article-title" th:text="${post.title}"></h1>
+            <p class="date" th:text="${post.publishedAt}"></p>
+            <p class="article-content" th:text="${post.content}"></p>
+            <h3>Comments: </h3>
+                <div th:each="comment : ${post.postComments}">
+                    <div class="comment">
+                        <h2 th:text="${comment.title}"></h2>
+                        <p class="userComment" th:text="${comment.user.getName()}"></p>
+                        <p class="date" th:text="${comment.publishedAt}"></p>
+                        <p th:text="${comment.content}"></p>
+                        <div th:each="commentChild : ${comment.postComments}">
+                            <div class="comment">
+                                <h2 th:text="${commentChild.title}"></h2>
+                                <p class="userComment" th:text="${commentChild.user.getName()}"></p>
+                                <p class="date" th:text="${commentChild.publishedAt}"></p>
+                                <p th:text="${commentChild.content}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+   <div class="inline" th:if="${postPage.totalPages > 0}" th:each="pageNumber :${pageNumbers}">
+       <a th:href="@{/post(page=${pageNumber})}"
+          th:text="${pageNumber}"
+          th:class="${pageNumber==postPage.number + 1} ? active"></a>
+   </div>
+</body>
+</html>

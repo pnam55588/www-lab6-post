@@ -45,6 +45,14 @@
 <body>
    <h1 align="center">Phạm Hà Nam Blogs</h1>
     <hr>
+       <form action="create-post" method="post">
+           <h2>Title:</h2>
+           <input name="title" placeholder="title" required>
+           <h2>Content:</h2>
+           <textarea name="content" rows="4" cols="50" required></textarea> <br>
+           <input type="submit" value="post">
+       </form>
+   <hr>
     <div th:each="post, iStat:${postPage.content}">
         <div class="article-container">
             <p th:text="${post.id}"></p>
@@ -52,10 +60,16 @@
             <p class="date" th:text="${post.publishedAt}"></p>
             <p class="article-content" th:text="${post.content}"></p>
             <h3>Comments: </h3>
+            <form action="create-comment" method="post">
+                <input name="title" placeholder="title" required> <br>
+                <textarea name="content" rows="3" cols="50" required></textarea> <br>
+                <input type="submit" value="send">
+                <input type="hidden" name="post" th:value="${post.id}">
+            </form>
                 <div th:each="comment : ${post.postComments}">
                     <div class="comment">
                         <h2 th:text="${comment.title}"></h2>
-                        <p class="userComment" th:text="${comment.user.getName()}"></p>
+                        <p class="userComment" th:if="${comment.user != null}" th:text="${comment.user.getName()}"></p>
                         <p class="date" th:text="${comment.publishedAt}"></p>
                         <p th:text="${comment.content}"></p>
                         <div th:each="commentChild : ${comment.postComments}">

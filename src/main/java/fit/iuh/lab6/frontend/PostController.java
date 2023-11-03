@@ -69,14 +69,16 @@ public class PostController {
         }
         return "post";
     }
-    @GetMapping("/post/my-posts")
-    public  String showPostUserPaging(Model model,
+    @GetMapping("/my-post")
+    public  String showPostUserPaging(Model model,HttpServletRequest req,
                                   @RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size){
+        Users userLogin = (Users) req.getSession().getAttribute("userLogin");
+        if(userLogin==null)
+            return "redirect:/login";
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(3);
-        Users user = new Users();
-        Page<Post> postPage = postService.findByAuthor(user,currentPage, pageSize, "id", "desc");
+        Page<Post> postPage = postService.findByAuthor(userLogin,currentPage, pageSize, "id", "desc");
         model.addAttribute("postPage", postPage);
         int totalPage = postPage.getTotalPages();
         if(totalPage>0){

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        nav {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .profile {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        p {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+<h1 align="center">Phạm Hà Nam</h1>
+<nav>
+    <a href="/profile">my profile</a>
+    <a href="/my-post">my posts</a>
+</nav>
+<div class="profile">
+    <div class="profile-info">
+        <label for="first-name">First Name:</label>
+        <p id="first-name" th:text="${userLogin.firstName}"></p>
+    </div>
+    <div class="profile-info">
+        <label for="middle-name">Middle Name:</label>
+        <p id="middle-name" th:text="${userLogin.middleName}"></p>
+    </div>
+    <div class="profile-info">
+        <label for="last-name">Last Name:</label>
+        <p id="last-name" th:text="${userLogin.lastName}"></p>
+    </div>
+    <div class="profile-info">
+        <label for="mobile">Mobile:</label>
+        <p id="mobile" th:text="${userLogin.mobile}"></p>
+    </div>
+    <div class="profile-info">
+        <label for="email">Email:</label>
+        <p id="email" th:text="${userLogin.email}"></p>
+    </div>
+</div>
+</body>
+</html>

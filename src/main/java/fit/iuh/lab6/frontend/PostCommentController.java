@@ -26,6 +26,7 @@ public class PostCommentController {
                                 @RequestParam("post") Optional<Long> postId,
                                 @RequestParam("title") Optional<String> title,
                                 @RequestParam("content") Optional<String> content){
+        System.out.println("test");
         PostComment postComment = new PostComment();
         postComment.setTitle(title.orElse("comment"));
         postComment.setContent(content.orElse("comment"));
